@@ -54,12 +54,13 @@ void dequeue(QueueType* q) {
 		fprintf(stderr,"quie is empty, cannot delete element.\n");
 		return;
 	}
-	q->rear--;
+	
 	element item = q->data[++(q->front)];
 	
 }
 
 void queueShift(QueueType* q) {
+	q->rear--;
 	q->front = -1;
 	for (int i = q->front + 1; i <= q->rear; i++) {
 		q->data[i] = q->data[i + 1];
