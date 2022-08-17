@@ -101,7 +101,7 @@ int main() {
 			}
 
 			dequeue(&q);
-			
+			queueShift(&q);
 
 			n--;
 		}
