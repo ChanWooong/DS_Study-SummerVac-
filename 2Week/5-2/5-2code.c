@@ -54,17 +54,19 @@ void dequeue(QueueType* q) {
 		fprintf(stderr,"quie is empty, cannot delete element.\n");
 		return;
 	}
-	
+
 	element item = q->data[++(q->front)];
 	
 }
-
 void queueShift(QueueType* q) {
-	q->rear--;
-	q->front = -1;
-	for (int i = q->front + 1; i <= q->rear; i++) {
-		q->data[i] = q->data[i + 1];
+	int j = 0;
+	for (int i = q->front+1; i <= q->rear; i++) {
+		q->data[j] = q->data[i];
+		j++;
 	}
+	q->rear = j-1;
+	q->front = -1;
+	printf("data Shift\n");
 }
 int main() {
 	char* commend;
@@ -81,12 +83,16 @@ int main() {
 	init_queue(&q);
 	printf("***********************************************\n");
 	while (1) {
+		
 		fgets(tmp, 50, fp);
 		commend = strtok_s(tmp, " \n", &commend2);
 		//printf("%s\n", commend);
-
+		
 		if (strcmp(commend, "add") == 0) {
-			
+			if (is_full(&q) && q.front != -1) {
+				queueShift(&q);
+				
+			}
 			id = strtok_s(commend2, " \n", &commend2);
 			name = strtok_s(commend2, " \n", &commend2);
 			strcpy(list.name, name);
@@ -94,6 +100,7 @@ int main() {
 			//printf("%d %s\n", list.id, list.name);
 			enqueue(&q,list);
 			n++;
+			
 		}
 		else if (strcmp(commend, "delete") == 0) {
 			if (is_empty(&q)) {
@@ -101,7 +108,6 @@ int main() {
 			}
 
 			dequeue(&q);
-			queueShift(&q);
 
 			n--;
 		}
