@@ -56,12 +56,15 @@ void dequeue(QueueType* q) {
 	}
 	q->rear--;
 	element item = q->data[++(q->front)];
+	
+}
+
+void queueShift(QueueType* q) {
 	q->front = -1;
-	for (int i = q->front+1; i <= q->rear; i++) {
+	for (int i = q->front + 1; i <= q->rear; i++) {
 		q->data[i] = q->data[i + 1];
 	}
 }
-
 int main() {
 	char* commend;
 	char* id;
@@ -97,6 +100,7 @@ int main() {
 			}
 
 			dequeue(&q);
+			
 
 			n--;
 		}
